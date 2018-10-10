@@ -1,0 +1,5 @@
+flask
+flask-restful
+flasgger
+flask-cors
+jsonschema
