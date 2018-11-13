@@ -1,6 +1,6 @@
 openapi: "3.0.1"
 info:
-  version: 0.1.0
+  version: 0.1.1
   title: Translator Interchange API Specification
   description: "Specification for the Translator Interchange API"
   contact:
@@ -13,7 +13,7 @@ definitions:
     required:
       - question_graph
       - knowledge_graph
-      - knowledge_maps
+      - answers
     properties:
       question_graph:
         $ref: '#/definitions/QGraph'
@@ -21,10 +21,10 @@ definitions:
         oneOf:
           - $ref: '#/definitions/KGraph'
           - $ref: '#/definitions/RemoteKGraph'
-      knowledge_maps:
+      answers:
         type: array
         items:
-          $ref: '#/definitions/KMap'
+          $ref: '#/definitions/Answer'
       options:
         $ref: '#/definitions/Options'
     example:
@@ -58,12 +58,14 @@ definitions:
             source_id: "OMIM:607623"
             target_id: "MONDO:0011871"
             type: "couldn't be less associated with"
-      knowledge_maps:
-        - n00: "MONDO:0005737"
-          n01: "OMIM:607623"
-          n02: "MONDO:0011871"
-          e00: "http://myverylogicalreasoner.org:7475/01234"
-          e01: "http://myverylogicalreasoner.org:7475/56789"
+      answers:
+        - score: 1.0
+          bindings:
+            n00: "MONDO:0005737"
+            n01: "OMIM:607623"
+            n02: "MONDO:0011871"
+            e00: "http://myverylogicalreasoner.org:7475/01234"
+            e01: "http://myverylogicalreasoner.org:7475/56789"
   QGraph:
     description: "Graph representing the minimal question specification"
     type: object
@@ -114,11 +116,21 @@ definitions:
       target_id:
         type: string
         description: "Internal ID of target node of this edge"
-  KMap:
-    description: "Map from question node and edge IDs to knowledge-graph entity identifiers and relationship references"
+  Answer:
+    description: "Answer to a question"
     type: object
-    additionalProperties:
-      type: string
+    required:
+      - bindings
+    properties:
+      score:
+        description: "Scalar score for answer"
+        type: number
+      bindings:
+        description: "Map from question node and edge IDs to knowledge-graph entity identifiers and relationship references"
+        type: object
+        additionalProperties:
+          type: string
+    additionalProperties: true
   Options:
     description: "Operation-/module-specific options"
     type: object
