@@ -17,17 +17,17 @@ components:
         - answers
       properties:
         question_graph:
-          $ref: '#/definitions/QGraph'
+          $ref: '#/components/schemas/QGraph'
         knowledge_graph:
           oneOf:
-            - $ref: '#/definitions/KGraph'
-            - $ref: '#/definitions/RemoteKGraph'
+            - $ref: '#/components/schemas/KGraph'
+            - $ref: '#/components/schemas/RemoteKGraph'
         answers:
           type: array
           items:
-            $ref: '#/definitions/Answer'
+            $ref: '#/components/schemas/Answer'
         options:
-          $ref: '#/definitions/Options'
+          $ref: '#/components/schemas/Options'
       example:
         question_graph:
           nodes:
@@ -77,11 +77,11 @@ components:
         nodes:
           type: array
           items:
-            $ref: "#/definitions/QNode"
+            $ref: "#/components/schemas/QNode"
         edges:
           type: array
           items:
-            $ref: "#/definitions/QEdge"
+            $ref: "#/components/schemas/QEdge"
     QNode:
       description: "Minimal node specification"
       type: object
@@ -145,7 +145,7 @@ components:
         url:
           type: string
         credentials:
-          $ref: '#/definitions/Credentials'
+          $ref: '#/components/schemas/Credentials'
     Credentials:
       description: "Credentials"
       type: object
@@ -167,11 +167,11 @@ components:
         nodes:
           type: array
           items:
-            $ref: "#/definitions/KNode"
+            $ref: "#/components/schemas/KNode"
         edges:
           type: array
           items:
-            $ref: "#/definitions/KEdge"
+            $ref: "#/components/schemas/KEdge"
       additionalProperties: true
     KNode:
       type: object
@@ -201,7 +201,7 @@ components:
           description: "A list of arbitrary attributes for the node"
           type: array
           items:
-            $ref: "#/definitions/KNode_attribute"
+            $ref: "#/components/schemas/KNode_attribute"
       additionalProperties: true
     KNode_attribute:
       description: "Generic attribute for a node"
@@ -267,7 +267,7 @@ components:
           description: "A list of additional attributes for this edge"
           type: array
           items:
-            $ref: "#/definitions/KEdge_attribute"
+            $ref: "#/components/schemas/KEdge_attribute"
       additionalProperties: true
     KEdge_attribute:
         description: "Generic attribute for an edge"
